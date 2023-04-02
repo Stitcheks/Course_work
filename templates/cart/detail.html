@@ -1,0 +1,114 @@
+{% extends "base_template.html" %}
+{% load static %}
+{% block title %}Корзина{% endblock %}
+{% block content %}
+<body>
+{% with quantity=cart.get_total_quantity %}
+    {% if quantity == 0 %}
+        <div style="background: #F6F6F7; margin-left: -8px;">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;
+                        font-family: Arial; gap: 25px;">
+                <div style="margin-top: 50px;">
+                    <img src="{% get_media_prefix %}html/Котик.png" alt="Котик"
+                         style="width:360px; height: 200px;">
+                </div>
+                <div style="font-size:20pt;">
+                    <b>В корзине нет товаров. Выберите нужные товары в нашем каталоге</b>
+                </div>
+                <a href="http://127.0.0.1:8000/catalog/" style="color: white;">
+                    <div style="display: flex; align-items: center; justify-content: center; border: 0px solid;
+                                border-radius: 4px; padding-left: 17px; padding-right: 17px; padding-top: 12px;
+                                padding-bottom: 12px; background: #00a0ac; margin-bottom: 20px;">
+                        Перейти в каталог товаров
+                    </div>
+                </a>
+            </div>
+        </div>
+    {% else %}
+<div style="background: #F6F6F7; margin-left: -8px;">
+    <div style="display: flex; flex-direction: column; font-family: Arial;">
+        <div style="margin-left: 8px;">
+            <h1>Моя корзина</h1>
+        </div>
+        <div style="display: flex; flex-direction: row; justify-content: space-between;
+                    margin-left: 15px; margin-right: 15px;">
+            <div style="display: flex; flex-direction: column; border-radius: 5px; background: white;">
+                {% for item in cart %}
+                    {% with packing=item.packing %}
+                            <div style="display: flex; flex-direction: row; flex-wrap: wrap;
+                                        justify-content: space-around; gap: 5px;
+                                        margin-top: 17px; margin-bottom: 17px; width: 750px;">
+                                <div style="display: flex; flex-direction: row">
+                                    <div style="width: 60px; height: 60px;">
+                                        <img src="{% get_media_prefix %}{{ packing.product.image }}"
+                                             style="display: flex; margin-left: auto;
+                                                    margin-right: auto; width: 55px; height: 60px">
+                                    </div>
+                                    <div style="display: flex; flex-direction: row; flex-wrap: wrap;
+                                                width: 450px;">
+                                        <div style="width: 450px;">
+                                            {{ packing.product }}
+                                        </div>
+                                        <div style="height: 20px; line-height: 20px; gap: 3px; text-align: center;
+                                                    vertical: align: middle;
+                                                    border-radius: 2px; padding-left: 5px;
+                                                    padding-right: 5px; background: #00a0ac;
+                                                    color: white">
+                                            {{ packing.name }}
+                                            {{ packing.unit }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; flex-direction: row; gap: 15px;">
+                                    <div style="font-size: 10pt; margin-top: 22px;">
+                                        <b>{{ packing.price }} BYN</b>
+                                    </div>
+                                    <div style="font-size: 10pt; margin-top: 22px;">
+                                        <b>* {{ item.quantity }}</b>
+                                    </div>
+                                    <div style="width: 30; height: 30;  margin-top: 16px;">
+                                        <a href="{% url 'cart:cart_remove' packing.id %}">
+                                            <img src="{% get_media_prefix %}html/trashbox.png"
+                                                 style="width: 25px; height: 25px;">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                    {% endwith %}
+                {% endfor %}
+                            <a href="{% url 'main:catalog' %}">
+                                <div style="width: 229px; margin-left: 30px; margin-top: 30px; border-radius: 4px;
+                                            padding: 5px; background: #00a0ac; color: white;">
+                                    Продолжить поиск по каталогу
+                                </div>
+                            </a>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; border: 0px solid;
+                        padding-top: 15px; background:  #008060; color: white;
+                        border-radius: 6px; width: 350px; height: 180px;">
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;
+                            gap: 10px;">
+                    <div style="font-size: 8pt;">
+                        <b>Количество товаров: {{ cart.get_total_quantity }}</b>
+                    </div>
+                    <div style="font-size: 20pt;">
+                        <b>{{ cart.get_total_price }} BYN</b>
+                    </div>
+                </div>
+                <div style="margin-top: 30px; height: 38px;">
+                    <b>Самовывоз</b>
+                </div>
+                <a href="{% url 'orders:order_create' %}" style="color: black;">
+                    <div style="color: black; border: 0px solid; background: white; border-radius: 3px;
+                            padding-left: 80px; padding-right: 80px; padding-top: 12px; padding-bottom: 12px;">
+                        Оформить заказ
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endwith %}
+</body>
+{% endblock %}
