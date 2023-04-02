@@ -1,0 +1,13 @@
+{% extends 'base_template.html' %}
+{% block title %}Ошибка{% endblock %}
+{% block feedback %}
+<div align="center" style="font-family: Arial;">
+    <h1>Некорректно указан номер, либо заявка по данному номеру уже существует.</h1>
+    <a href="{% url 'orders:feedback' %}">
+        <div style="font-size: 9pt; color: blue;">
+            Вернуться
+        </div>
+    </a>
+    <hr>
+</div>
+{% endblock %}

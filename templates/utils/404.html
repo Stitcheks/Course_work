@@ -1,0 +1,9 @@
+{% extends "base_template.html" %}
+{% block feedback %}
+<div align="center" style="font-family: Arial;">
+<h1>Продукт не найден</h1>
+<a href="{% url 'main:catalog' %}" style="color: blue;">
+    <h3 style="width: 200px; border-bottom: 1px solid">Вернутся к каталогу</h3>
+</a>
+</div>
+{% endblock %}

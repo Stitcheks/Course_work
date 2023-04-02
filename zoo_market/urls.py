@@ -13,6 +13,7 @@ urlpatterns = [
     re_path(r'^account/', include('account.urls')),
     re_path(r'^orders/', include('orders.urls', namespace='orders')),
     re_path(r'^cart/', include('cart.urls', namespace='cart')),
+    re_path(r'^cat_filter/', include('main.urls')),
     path('<int:pk>', get_product, name='product_detail'),
     path('', include('main.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \

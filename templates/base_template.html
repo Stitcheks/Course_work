@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            Территория ZOO
+        {% endblock %}
+    </title>
+    <style type="text/css">
+        A{
+          text-decoration: none;
+          }
+    </style>
+</head>
+<header>
+<div style="height: 40px; display: flex; flex-direction: row; justify-content: space-between; align-items: center;
+            margin-right: 20px; margin-left: 8px; font-family: Arial; font-size: 11pt;">
+    <div style="display: flex; flex-direction: row; gap: 7px;">
+        <div>
+            <img src="{% get_media_prefix %}html/place.png" alt="">
+        </div>
+        <div>
+            Минск, ул. Чюрлёниса, 6.
+        </div>
+        <div>
+            <img src="{% get_media_prefix %}html/metro.png" alt="">
+        </div>
+        <div>
+            Малиновка
+        </div>
+    </div>
+    <div style="display: flex; flex-direction: row; gap: 7px;">
+        <div>
+            <img src="{% get_media_prefix %}html/time.png" alt="">
+        </div>
+        <div style="display: flex; flex-direction: row; gap: 5px;">
+             <div style="border-right: 1.5px solid grey; padding-right: 5px;">
+                 Пн.-Пт. 10:00-21:00
+             </div>
+             <div>
+                 Сб.-Вс. 10:00-20:00
+             </div>
+        </div>
+    </div>
+    <div style="display: flex; flex-direction: row; gap: 12px;">
+        <div>
+            <img src="{% get_media_prefix %}html/phone.png" alt="">
+        </div>
+        <div>
+            <b>+ 375 (44) 501 03 55</b>
+        </div>
+        <div>
+             <a target="_blank" href="https://www.instagram.com/territoriyazoo/">
+                <img src="{% get_media_prefix %}html/instagramm.png" alt="" style="width: 17px; height: 17px;">
+            </a>
+        </div>
+    </div>
+    <div>
+        <a href="{% url 'orders:feedback' %}" style="color:#5570cb;">Обратный звонок</a>
+    </div>
+</div>
+<div style="height: 55px; background: #00a0ac; margin-left: -8px; display: flex; flex-direction: row;
+            justify-content: space-between; align-items: center; font-family: Arial; font-size: 11pt;">
+    <a href="http://127.0.0.1:8000/">
+        <div style="display: flex; flex-direction: row; gap: 10px; align-items: center;">
+            <div style="margin-left: 13px;">
+                <img src="{% get_media_prefix %}html/zoo_logo.png" alt="" style="width: 24px; height: 30px;">
+            </div>
+            <div style="color: white;">
+                <b>ТЕРРИТОРИЯ ZOO</b>
+            </div>
+        </div>
+    </a>
+    <div class="form">
+        <form action="{% url 'main:search_results' %}" method="get">
+            {% csrf_token %}
+            <input name="q" type="text" placeholder="Поиск" style="width: 450px; height: 30px;">
+        </form>
+    </div>
+    <div style="display: flex; flex-direction: row; gap: 40px; color: white; align-items: center;">
+        <a href="http://127.0.0.1:8000/" style="color: white;">
+            <div>
+                Главная
+            </div>
+        </a>
+        <a href="{% url 'main:catalog' %}" style="color: white;">
+            <div>
+                Каталог
+            </div>
+        </a>
+        {% if user.is_active %}
+            <a href="{% url 'account:edit' %}" style="color: white;">
+                <div>
+                    Личный кабинет
+                </div>
+            </a>
+            <a href="{% url 'account:logout' %}" style="color: white;">
+                <div>Выйти</div>
+            </a>
+        {% else %}
+            <a href="{% url 'account:register' %}" style="color: white;">
+                <div>
+                    Зарегистрироваться
+                </div>
+            </a>
+        {% endif %}
+        <a href="{% url 'cart:cart_detail' %}">
+            <div style="height: 25px; width: 40px; display: flex; flex-direction: row; gap: 8px; align-items: center;
+                        border: 1px solid; color: grey; border-radius: 5px; background: white; padding: 5px;
+                        padding-left: 10px; padding-right: 10px; margin-right: 14px;">
+                <div>
+                    <img src="{% get_media_prefix %}html/Korzina.png" alt="" style="width: 18px; height: 20px;">
+                </div>
+                <div style="color: black; font-size: 13pt;">
+                    {{ cart.get_total_quantity }}
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+</header>
+<body>
+{% block content%}
+{% endblock %}
+</body>
+{% block feedback %}
+<footer>
+    <div style="height: 40px; display: flex; flex-direction: row; justify-content: space-between; align-items: center;
+                font-family: Arial; font-size: 10pt; margin-top: 8px;">
+        <a href="http://127.0.0.1:8000/" style="color: black;">
+            <div style="display: flex; flex-direction: row; gap: 10px; align-items: center;">
+                <div>
+                    <img src="{% get_media_prefix %}html/grey_logo.png" alt="" style="width: 23px; height: 22.5px;">
+                </div>
+                <div style="display: flex; flex-direction: row; gap: 10px; font-size: 12pt;">
+                    <div>ТЕРРИТОРИЯ</div>
+                    <div style="color: #008060">ZOO</div>
+                </div>
+            </div>
+        </a>
+        <div style="display: flex; flex-direction: row; gap: 30px; margin-right: 20px;">
+            <a href="http://127.0.0.1:8000/" style="color: black;">
+                <div>Главная</div>
+            </a>
+            <a href="{% url 'main:catalog' %}" style="color: black;">
+                <div>
+                    Каталог
+                </div>
+            </a>
+            <div>Личный кабинет</div>
+        </div>
+    </div>
+    <hr>
+<div style="height: 40px; display: flex; flex-direction: row; justify-content: space-between; align-items: center;
+            margin-right: 20px; margin-left: 8px; font-family: Arial; font-size: 11pt;">
+    <div style="display: flex; flex-direction: row; gap: 7px;">
+        <div>
+            <img src="{% get_media_prefix %}html/place.png" alt="">
+        </div>
+        <div>
+            Минск, ул. Чюрлёниса, 6.
+        </div>
+        <div>
+            <img src="{% get_media_prefix %}html/metro.png" alt="">
+        </div>
+        <div>
+            Малиновка
+        </div>
+    </div>
+    <div style="display: flex; flex-direction: row; gap: 7px;">
+        <div>
+            <img src="{% get_media_prefix %}html/time.png" alt="">
+        </div>
+        <div style="display: flex; flex-direction: row; gap: 5px;">
+             <div style="border-right: 1.5px solid grey; padding-right: 5px;">
+                 Пн.-Пт. 10:00-21:00
+             </div>
+             <div>
+                 Сб.-Вс. 10:00-20:00
+             </div>
+        </div>
+    </div>
+    <div style="display: flex; flex-direction: row; gap: 7px;">
+        <div>
+            <img src="{% get_media_prefix %}html/phone.png" alt="">
+        </div>
+        <div>
+            <b>+ 375 (44) 501 03 55</b>
+        </div>
+        <div>
+            <a target="_blank" href="https://www.instagram.com/territoriyazoo/">
+                <img src="{% get_media_prefix %}html/instagramm.png" alt="" style="width: 17px; height: 17px;">
+            </a>
+        </div>
+    </div>
+    <div>
+        <a href="{% url 'orders:feedback' %}" style="color:#5570cb;"><b>Обратный звонок</b></a>
+    </div>
+</div>
+</footer>
+{% endblock %}
+</html>

@@ -1,0 +1,32 @@
+{% extends 'base_template.html' %}
+{% block title %}Регистрация{% endblock %}
+{% block content %}
+<div style="display: flex; justify-content: center; font-family: Arial;">
+    <div style="display: flex; flex-direction: column;">
+        <h1 style="border-bottom: 1px solid; padding-bottom: 15px;">Регистрация</h1>
+        <p style="font-size: 14pt;">Пожалуйста, заполните данную форму:</p>
+        <form action="" method="post">
+            {% csrf_token %}
+            Логин:
+            <p>{{ user_form.username}}</p>
+            <p style="font-size: 9pt; margin-top: -10px;">
+                Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.
+            </p>
+            Имя:
+            <p>{{ user_form.first_name }}</p>
+            Адрес электронной почты:
+            <p>{{ user_form.email }}</p>
+            Пароль:
+            <p>{{ user_form.password1 }}</p>
+                <p style="font-size: 9pt; margin-top: -10px;">
+                Не менее 8 символов, должен содержать буквы
+            Подтвердите пароль:
+            <p>{{ user_form.password2 }}</p>
+            <p><input type="submit"></p>
+        </form>
+        <a href="{% url 'account:login' %}">
+            <div style="font-size: 9pt; color: blue;">Уже зарегестрированы?</div>
+        </a>
+    </div>
+</div>
+{% endblock %}

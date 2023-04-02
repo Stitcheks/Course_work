@@ -1,0 +1,24 @@
+{% extends "base_template.html" %}
+{% load static %}
+{% block title %}Обратный звонок{% endblock %}
+{% block feedback %}
+<body>
+    <div align="center" style="font-family: Arial;">
+        <h1>Перезвоним вам в течение 15 минут</h1>
+        <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        {% if field.name == 'name' %}
+            <p> Имя: </p>
+        {% else %}
+            <p> Номер телефона: </p>
+        {% endif %}
+        <p>{{ field }}
+        </p>
+        {% endfor %}
+        <button type="submit">Отправить</button>
+        </form>
+    </div>
+</body>
+<hr style="margin-top: 100px;">
+{% endblock %}

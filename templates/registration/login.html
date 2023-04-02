@@ -1,0 +1,20 @@
+{% extends 'base_template.html' %}
+{% block title %}
+Авторизация
+{% endblock %}
+{% block content %}
+<div style="display: flex; flex-direction: column; align-items: center; font-family: Arial;">
+    <div>
+        <h1>Авторизация</h1>
+        <p>Введите логин и пароль</p>
+        <form action="" method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <p><input type="submit" value="Отправить"></p>
+        </form>
+        <a href="{% url 'account:register' %}">
+            <div style="font-size: 9pt; color: blue;">Или зарегистрируйтесь</div>
+        </a>
+    </div>
+</div>
+{% endblock %}

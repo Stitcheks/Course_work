@@ -1,0 +1,71 @@
+{% extends "base_template.html" %}
+{% load static %}
+{% block content %}
+<body>
+<div style="height: 180px; display: flex; align-items: center; justify-content: space-between;
+            background: #F6F6F7; margin-left: -8px;">
+        {% for i in cats %}
+<a href="{% url 'main:cat_filter' i.pk %}">
+    <div style="width: 220px; display: flex; flex-direction: row; background: white; border-radius: 5px;">
+        <div style="height: 85px;">
+            <img src="{% get_media_prefix %}{{ i.image }}" alt="Каталог">
+        </div>
+        <div style="font-family: Arial; color: #363636; margin-top: 32px; margin-left: 15px;">
+            <b>{{ i }}</b>
+        </div>
+    </div>
+</a>
+    {% endfor %}
+</div>
+<div style="display: flex; flex-direction: row; justify-content: start; margin-left: 10px;">
+    <div style="display: flex; flex-direction: column; justify-content: left; width: 500px">
+        <div style="font-family: Arial; color: #363636;">
+            <h1>
+                Всё, что нужно вашему
+                питомцу в 9 мин от метро
+                Малиновка
+            </h1>
+            <div style="display: flex; flex-direction: row;">
+                <div style="width: 200px; border-left: 2px solid #82bfe9; margin-left: 5px;">
+                    <div style="margin-left: 7px;"><b>Более 2000 товаров</b> для животных в наличии</div>
+                </div>
+                <div style="width: 240px; border-left: 2px solid #82bfe9; margin-left: 37px;">
+                    <div style="margin-left: 7px;"><b>Вкусные сюрпризы</b> для ваших питомцев в магазине</div>
+                </div>
+            </div>
+        <a href="http://127.0.0.1:8000/catalog/" style="color: white;">
+            <div style="width: 150px; height: 35px; margin-top: 30px; padding: 8px; border-radius: 5px;
+                        font-family: Arial; color: white; background: #00a0ac">
+            <div align="center" style="margin-top: 8px;">
+                Выбрать товар</div>
+            </div>
+        </a>
+        </div>
+    </div>
+
+    <div style="margin-left: 50px">
+        <img src="{% get_media_prefix %}html/Всё, что нужно....png" alt="картиночка"
+        style="width: 600px; height: 400px;">
+    </div>
+</div>
+
+<div style="margin-left: -8px; background: #F6F6F7;">
+    <div style="height: 100px; display: flex; align-items: center;">
+        <h2 style="font-family: Arial; color: #363636; margin-left: 15px;">
+            <b>Популярные бренды</b>
+        </h2>
+    </div>
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap; background: #F6F6F7; margin-left: -8px;">
+        {% for brand in brands %}
+        <div style="width: 160px; height: 90px; margin-left: 20px; margin-top: 15px; margin-bottom: 0px; padding: 8px; border-radius: 4px;
+         font-family: Arial; background: white;">
+            <img src="{% get_media_prefix %}{{ brand.image }}" alt="{{ brand.name }}"
+                 style="width: 155px; height: 90px;">
+        </div>
+        {% endfor %}
+    </div>
+    <div style="height: 30px;">
+    </div>
+</div>
+</body>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'main/cat_filter.html' %}
+{% load static %}
+{% block advanced %}
+<div>
+    {% with id=product_type.first.id %}
+    {% if p_type.id == id %}
+    {% for clar in product_type.first.clarification_set.values %}
+        <p style="font-size: 10pt; margin-left: 5px;">
+            <a href="{% url 'main:cat_clarification_filter' cata.pk p_type.id clar.id %}" style="color: green;">
+                {{ clar.name }}
+            </a>
+        </p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+{% endblock %}
