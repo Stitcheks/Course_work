@@ -1,0 +1,31 @@
+{% extends 'base_template.html' %}
+{% block title %}Личный кабинет{% endblock %}
+{% block content %}
+<h1 style="font-family: Arial">Редактировать профиль</h1>
+<div style="display: flex; flex-direction: row; gap: 100px; font-family: Arial;">
+    <form action="." method="post" enctype="multipart/form-data">
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit"></p>
+    </form>
+    <div>
+        <div style="font-size: 22pt;">История заказов:</div>
+        {% for order in orders %}
+            <p style="margin-bottom: 25px; border-bottom: 1px solid;">{{ order.created }}:</p>
+                <div style="display: flex; flex-direction: column; gap: 5px; padding: 10px;
+                            border-radius: 4px; background: #50a992; color: white;">
+                    {% for item in order.items.get_queryset %}
+                        <div>
+                            x{{ item.quantity }}
+                            {{ item.packing }}
+                        </div>
+                    {% endfor %}
+                    <div>
+                        Всего: {{ order.get_total_cost }} BYN
+                    </div>
+                </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
