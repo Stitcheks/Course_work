@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from cart.forms import CartAddProductForm
 from cart.cart import Cart
-
 from .models import Catalog, Product, Brand, ProductType
 from django.views.generic import ListView
 
