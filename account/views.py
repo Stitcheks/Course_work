@@ -11,7 +11,6 @@ from .models import Profile
 
 
 def user_login(request):
-    cart = Cart(request)
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -22,26 +21,24 @@ def user_login(request):
                     login(request, user)
                     return render(request,
                                   'registration/authenticated_successfully.html',
-                                  context={'cart': cart, 'user': user})
+                                  context={'user': user})
                 else:
                     return HttpResponse('Аутентификация не удалась')
             else:
                 return HttpResponse('Неправильный логин')
     else:
         form = LoginForm()
-    return render(request, 'registration/login.html', context={'form': form, 'cart': cart})
+    return render(request, 'registration/login.html', context={'form': form})
 
 
 def user_logout(request):
     cats = Catalog.objects.all()
-    cart = Cart(request)
     brands = Brand.objects.all()
     logout(request)
-    return render(request, 'main/main_page.html', context={'cart': cart, 'cats': cats, 'brands': brands})
+    return render(request, 'main/main_page.html', context={'cats': cats, 'brands': brands})
 
 
 def register(request):
-    cart = Cart(request)
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
         if user_form.is_valid():
@@ -52,16 +49,15 @@ def register(request):
             return render(
                 request,
                 'registration/register_done.html',
-                context={'new_user': new_user, 'cart': cart})
+                context={'new_user': new_user})
     else:
         user_form = UserRegistrationForm()
-    return render(request, 'registration/register.html', context={'user_form': user_form, 'cart': cart})
+    return render(request, 'registration/register.html', context={'user_form': user_form})
 
 
 @login_required
 def edit(request):
     orders = Order.objects.filter(user_id=request.user)
-    cart = Cart(request)
     if request.method == 'POST':
         user_form = UserEditForm(instance=request.user, data=request.POST)
         profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
@@ -74,4 +70,4 @@ def edit(request):
     return render(request, 'account/edit.html', context={'user_form': user_form,
                                                          'profile_form': profile_form,
                                                          'orders': orders,
-                                                         'cart': cart})
+                                                         })
