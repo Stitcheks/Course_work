@@ -20,9 +20,7 @@
     <div style="height: 70px; font-family: Arial; color: #363636; margin-left: 8px;">
         <h1>
             Каталог товаров:
-            {% with prod=products.first %}
-                {{ prod.catalog }}
-            {% endwith %}
+                {{ products.first.catalog }}
         </h1>
     </div>
 </div>
